@@ -1,0 +1,30 @@
+{
+  "name": "pro-cli",
+  "version": "1.0.0",
+  "description": "manage projects",
+  "bin": {
+    "pro": "bin/pro",
+    "pro-init": "bin/pro-init",
+    "pro-list": "bin/pro-list"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GGStupid/pro-cli.git"
+  },
+  "keywords": [
+    "GG_Stupid"
+  ],
+  "author": "GG_Stupid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GGStupid/pro-cli/issues"
+  },
+  "homepage": "https://github.com/GGStupid/pro-cli#readme",
+  "devDependencies": {
+    "commander": "^2.13.0",
+    "download-git-repo": "^1.0.2",
+    "glob": "^7.1.2",
+    "inquirer": "^5.0.1",
+    "latest-version": "^3.1.0"
+  }
+}
