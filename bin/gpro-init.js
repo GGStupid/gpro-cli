@@ -49,10 +49,8 @@ next && go()
 function go () {
   next.then(projectRoot => {
     if (projectRoot !== '.') {
-      console.log('--mkdir0---')
       fs.mkdirSync(projectRoot)
     }
-    console.log('------go-----', projectRoot)
     return download(projectRoot)
       .then(target => {
         return {
@@ -62,7 +60,6 @@ function go () {
         }
       })
   }).then(context => {
-    console.log('---go prompt-----', context)
     return inquirer.prompt([
       {
         name: 'projectName',
@@ -82,18 +79,22 @@ function go () {
     ]).then(ans => {
       return latestVersion('react').then(version => {
         ans.supportUiVersion = version
-        return ans
+        return {
+          ...context,
+          ans: {
+            ...ans
+          }
+        }
       }).catch(err => {
         return Promise.reject(err)
       })
     })
   }).then(ctx => {
-    console.log(ctx)
-    return generator(ctx, '/Users/gg_stupid/personProjects/pro-cli/test/.download-temp')
+    return generator(ctx, `${process.cwd()}/${ctx.name}/.download-temp`, `${process.cwd()}/${ctx.name}`)
   }).then(context => {
     console.log(logSymbols.success, chalk.green('创建成功:)'))
     console.log()
-    console.log(chalk.green('cd ' + 'test' + '\nnpm install\nnpm run dev'))
+    console.log(chalk.green('cd ' + context.root + '\nnpm install\nnpm run dev'))
   }).catch(err => {
     console.error(logSymbols.error, chalk.red(`创建失败：${error.message}`))
   })
