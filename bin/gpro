@@ -8,3 +8,4 @@ require('commander')
   .command('remove', 'remove a template project')
   .command('list', 'list available official templates')
   .parse(process.argv)
+

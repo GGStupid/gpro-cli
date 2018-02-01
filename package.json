@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "manage projects",
   "bin": {
-    "gpro": "bin/gpro",
-    "gpro-init": "bin/gpro-init",
-    "gpro-list": "bin/gpro-list"
+    "gpro": "./bin/gpro",
+    "gpro-init": "./bin/gpro-init"
   },
   "repository": {
     "type": "git",
@@ -20,7 +19,8 @@
     "url": "https://github.com/GGStupid/gpro-cli/issues"
   },
   "homepage": "https://github.com/GGStupid/gpro-cli#readme",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "commander": "^2.13.0",
     "download-git-repo": "^1.0.2",
     "glob": "^7.1.2",
