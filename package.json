@@ -1,15 +1,15 @@
 {
-  "name": "pro-cli",
+  "name": "gpro-cli",
   "version": "1.0.0",
   "description": "manage projects",
   "bin": {
-    "pro": "bin/pro",
-    "pro-init": "bin/pro-init",
-    "pro-list": "bin/pro-list"
+    "gpro": "bin/gpro",
+    "gpro-init": "bin/gpro-init",
+    "gpro-list": "bin/gpro-list"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GGStupid/pro-cli.git"
+    "url": "git+https://github.com/GGStupid/gpro-cli.git"
   },
   "keywords": [
     "GG_Stupid"
@@ -17,14 +17,17 @@
   "author": "GG_Stupid",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/GGStupid/pro-cli/issues"
+    "url": "https://github.com/GGStupid/gpro-cli/issues"
   },
-  "homepage": "https://github.com/GGStupid/pro-cli#readme",
+  "homepage": "https://github.com/GGStupid/gpro-cli#readme",
   "devDependencies": {
     "commander": "^2.13.0",
     "download-git-repo": "^1.0.2",
     "glob": "^7.1.2",
+    "handlebars": "^4.0.11",
     "inquirer": "^5.0.1",
-    "latest-version": "^3.1.0"
+    "latest-version": "^3.1.0",
+    "metalsmith": "^2.3.0",
+    "ora": "^1.3.0"
   }
 }

@@ -6,7 +6,10 @@ const fs = require('fs')
 const glob = require('glob')
 const inquirer = require('inquirer')
 const latestVersion = require('latest-version')
+const chalk = require('chalk')
+const logSymbols = require('log-symbols')
 const download = require('../lib/download')
+const generator = require('../lib/generator')
 
 program.usage('<project-name>').parse(process.argv)
 
@@ -24,9 +27,9 @@ if (list.length) {
     const isDir = fs.statSync(fileName).isDirectory()
     return name.indexOf(projectName) !== -1 && isDir
   }).length !== 0) {
-    return console.log(`项目${projectName}已经存在`)
+    return console.log(chalk.red(`项目${projectName}已经存在`))
   }
-  rootName = Promise.resolve(projectName)
+  next = Promise.resolve(projectName)
 } else if (rootName === projectName) {
   next = inquirer.prompt([
     {
@@ -46,16 +49,20 @@ next && go()
 function go () {
   next.then(projectRoot => {
     if (projectRoot !== '.') {
+      console.log('--mkdir0---')
       fs.mkdirSync(projectRoot)
     }
-  })
-  return download(projectRoot).then(target => {
-    return {
-      name: projectRoot,
-      root: projectRoot,
-      downloadTemp: target
-    }
+    console.log('------go-----', projectRoot)
+    return download(projectRoot)
+      .then(target => {
+        return {
+          name: projectRoot,
+          root: projectRoot,
+          downloadTemp: target
+        }
+      })
   }).then(context => {
+    console.log('---go prompt-----', context)
     return inquirer.prompt([
       {
         name: 'projectName',
@@ -73,21 +80,21 @@ function go () {
         default: `A project named ${context.name}`
       }
     ]).then(ans => {
-      return latestVersion('pro-ui').then(version => {
+      return latestVersion('react').then(version => {
         ans.supportUiVersion = version
-        return {
-          ...context,
-          metadata: {
-            ...ans
-          }
-        }
+        return ans
       }).catch(err => {
         return Promise.reject(err)
       })
     })
+  }).then(ctx => {
+    console.log(ctx)
+    return generator(ctx, '/Users/gg_stupid/personProjects/pro-cli/test/.download-temp')
   }).then(context => {
-    console.log(context)
+    console.log(logSymbols.success, chalk.green('创建成功:)'))
+    console.log()
+    console.log(chalk.green('cd ' + 'test' + '\nnpm install\nnpm run dev'))
   }).catch(err => {
-    console.log(err)
+    console.error(logSymbols.error, chalk.red(`创建失败：${error.message}`))
   })
 }
